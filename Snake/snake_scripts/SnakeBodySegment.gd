@@ -13,7 +13,7 @@ func _ready():
 	seg_size = $StaticBody2D/CollisionShape2D.shape.radius * 2 + seg_pad
 	progress = seg_num*seg_size
 
-func _process(delta):
+func _process(_delta):
 	progress = seg_num*seg_size
 	v_offset = 0
 	t += position.distance_to(prevPos)*wiggle_ratio

@@ -15,7 +15,5 @@ func _on_child_entered_tree(node):
 		var child = get_child(get_child_count()-2)
 		node.t = wiggle_node_offset_deg + child.t
 	
-	for c in get_children():
-		print(c.t)
 		
 	pass # Replace with function body.

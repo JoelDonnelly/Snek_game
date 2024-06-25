@@ -19,4 +19,5 @@ script = ExtResource("1_y0x7h")
 curve = SubResource("Curve2D_r2mm3")
 script = ExtResource("3_vt87q")
 
+[connection signal="feed" from="HeadSegment" to="." method="_on_head_segment_feed"]
 [connection signal="child_entered_tree" from="Tail" to="Tail" method="_on_child_entered_tree"]

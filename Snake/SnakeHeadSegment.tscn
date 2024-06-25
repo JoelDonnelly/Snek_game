@@ -6,7 +6,6 @@
 
 [node name="HeadSegment" type="CharacterBody2D" groups=["hungry"]]
 collision_mask = 2
-motion_mode = 1
 script = ExtResource("1_dlppv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
