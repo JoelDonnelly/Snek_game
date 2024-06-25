@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgjafvglpobht"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_t0vsi"]
+[ext_resource type="PackedScene" uid="uid://bu47vd5ss0uit" path="res://Snake/Snake.tscn" id="2_g1spj"]
+[ext_resource type="PackedScene" uid="uid://dp7ocqbc8p5of" path="res://Apples/Apple.tscn" id="3_0dgp2"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_t0vsi")
+
+[node name="Snake" parent="." instance=ExtResource("2_g1spj")]
+position = Vector2(98, 45)
+
+[node name="AddBodySegTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Apple" parent="." instance=ExtResource("3_0dgp2")]
+position = Vector2(133, 242)
+
+[node name="Apple2" parent="." instance=ExtResource("3_0dgp2")]
+position = Vector2(898, 271)
+
+[node name="Apple3" parent="." instance=ExtResource("3_0dgp2")]
+position = Vector2(582, 141)
+
+[node name="Apple4" parent="." instance=ExtResource("3_0dgp2")]
+position = Vector2(404, 401)
+
+[connection signal="timeout" from="AddBodySegTimer" to="." method="_on_add_body_seg_timer_timeout"]

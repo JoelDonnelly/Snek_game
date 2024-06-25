@@ -1,0 +1,30 @@
+extends Node2D
+
+const bodySeg : PackedScene = preload("res://Snake/SnakeBodySegment.tscn")
+var segCount : int = 0
+var maxSegs = 10
+
+var minPathNodeDist = 1
+const extraPathLength = 100.0
+var requiredPathLength = 0 + extraPathLength
+
+func attatch_body_seg():
+	var new_seg = bodySeg.instantiate()
+	segCount += 1
+	new_seg.seg_num = segCount
+	$Tail.add_child(new_seg)
+	requiredPathLength = segCount*new_seg.seg_size + extraPathLength
+
+func _ready():
+	pass
+
+func _process(delta):
+	# check that the next node is far enough away from previous
+	if $HeadSegment.position.distance_to($Tail.curve.get_point_position(0)) > minPathNodeDist: 
+		$Tail.curve.add_point($HeadSegment.position, Vector2.ZERO, Vector2.ZERO, 0)
+	
+	# remove excess path nodes
+	while $Tail.curve.get_baked_length() > requiredPathLength:
+		$Tail.curve.remove_point($Tail.curve.point_count-1)
+		
+

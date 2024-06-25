@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dp7ocqbc8p5of"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5twua"]
+radius = 8.0
+
+[node name="Apple" type="Area2D" groups=["food"]]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5twua")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.878431, 0, 0, 1)
+polygon = PackedVector2Array(-3, -7, 3, -7, 7, -3, 7, 3, 3, 7, -3, 7, -7, 3, -7, -3)
