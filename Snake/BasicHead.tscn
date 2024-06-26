@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbvdf5j6jv5lt"]
 
-[ext_resource type="Script" path="res://Snake/snake_scripts/SnakeHeadSegment.gd" id="1_dlppv"]
+[ext_resource type="Script" path="res://Snake/snake_scripts/SnakeHeadSegment.gd" id="1_fdem6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_we1bo"]
 
 [node name="HeadSegment" type="CharacterBody2D" groups=["hungry"]]
 collision_mask = 2
-script = ExtResource("1_dlppv")
+script = ExtResource("1_fdem6")
 rot_speed_deg = 360.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

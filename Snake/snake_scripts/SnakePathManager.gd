@@ -1,6 +1,6 @@
 extends Node2D
 
-const bodySeg : PackedScene = preload("res://Snake/SnakeBodySegment.tscn")
+var bodySeg : PackedScene = preload("res://Snake/BasicBody.tscn")
 var segCount : int = 0
 var maxSegs = 10
 
@@ -13,7 +13,7 @@ func attatch_body_seg():
 	segCount += 1
 	new_seg.seg_num = segCount
 	requiredPathLength = segCount*new_seg.seg_size + extraPathLength
-	$Tail.call_deferred('add_child',new_seg)
+	$Tail.call_deferred('add_snake_body',new_seg)
 
 func _ready():
 	pass

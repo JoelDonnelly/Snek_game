@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-class_name snake_body_seg
+class_name SnakeBodySeg
 
 var seg_num : int = 0 
 @export var seg_pad : float = 10:
@@ -32,5 +32,3 @@ func _process(_delta):
 func _set_wiggle(theta):
 	v_offset = sin(theta) * wiggle_amp
 
-
-	

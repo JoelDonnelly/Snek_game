@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bu47vd5ss0uit"]
 
 [ext_resource type="Script" path="res://Snake/snake_scripts/SnakePathManager.gd" id="1_y0x7h"]
-[ext_resource type="PackedScene" uid="uid://bbvdf5j6jv5lt" path="res://Snake/SnakeHeadSegment.tscn" id="1_yma3x"]
+[ext_resource type="PackedScene" uid="uid://bbvdf5j6jv5lt" path="res://Snake/BasicHead.tscn" id="1_yma3x"]
 [ext_resource type="Script" path="res://Snake/snake_scripts/SnakeBodyWiggler.gd" id="3_vt87q"]
 
 [sub_resource type="Curve2D" id="Curve2D_r2mm3"]
