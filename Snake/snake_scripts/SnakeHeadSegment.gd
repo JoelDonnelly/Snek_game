@@ -4,8 +4,12 @@ extends CharacterBody2D
 signal feed
 
 @export var speed : float = 300.0
-@export var decelTime : float= 0.8
+@export var accelTime : float = 0.8
+@export var decelTime : float = 0.8
 var decelSpeed : float = speed/decelTime
+var accelSpeed : float = speed/accelTime
+
+var rot_speed : float = 60
 
 func collect(item : String) -> void:
 	if item == "Apple":
