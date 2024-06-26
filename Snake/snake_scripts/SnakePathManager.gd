@@ -21,14 +21,12 @@ func _ready():
 func _process(_delta):
 	# check that the next node is far enough away from previous
 	if $HeadSegment.position.distance_to($Tail.curve.get_point_position(0)) > minPathNodeDist: 
-		$Tail.curve.add_point($HeadSegment.position, Vector2.ZERO, Vector2.ZERO, 0)
+		$Tail.add_path_point($HeadSegment.position)
 	
 	# remove excess path nodes
 	while $Tail.curve.get_baked_length() > requiredPathLength:
-		$Tail.curve.remove_point($Tail.curve.point_count-1)
+		$Tail.remove_path_end()
 		
-
-
 
 func _on_head_segment_feed():
 	attatch_body_seg()

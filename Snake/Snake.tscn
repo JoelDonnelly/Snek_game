@@ -18,6 +18,8 @@ script = ExtResource("1_y0x7h")
 [node name="Tail" type="Path2D" parent="."]
 curve = SubResource("Curve2D_r2mm3")
 script = ExtResource("3_vt87q")
+wiggle_move_ratio = 0.05
+wiggle_node_offset_deg = 120.0
 
 [connection signal="feed" from="HeadSegment" to="." method="_on_head_segment_feed"]
 [connection signal="child_entered_tree" from="Tail" to="Tail" method="_on_child_entered_tree"]
