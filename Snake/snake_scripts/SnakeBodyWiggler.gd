@@ -2,8 +2,8 @@ extends Path2D
 
 class_name SnakeTail
 
-@export var wiggle_move_ratio : float = 0.02
-@export var wiggle_node_offset_deg : float = 20
+@export var wiggle_move_ratio : float = 0.05
+@export var wiggle_node_offset_deg : float = 120
 
 func add_snake_body(new_seg : SnakeBodySeg):
 	add_child(new_seg)
