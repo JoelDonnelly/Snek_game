@@ -7,7 +7,6 @@
 [node name="HeadSegment" type="CharacterBody2D" groups=["hungry"]]
 collision_mask = 2
 script = ExtResource("1_dlppv")
-rot_speed_deg = 360.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_we1bo")

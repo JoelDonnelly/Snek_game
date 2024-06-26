@@ -3,34 +3,41 @@ extends CharacterBody2D
 
 signal feed
 
-@export var speed : float = 300.0
+@export var max_speed : float = 300.0
 @export var accelTime : float = 0.8
 @export var decelTime : float = 0.8
-var decelSpeed : float = speed/decelTime
-var accelSpeed : float = speed/accelTime
+var decelSpeed : float = max_speed/decelTime
+var accelSpeed : float = max_speed/accelTime
 
-var rot_speed : float = 60
+@export var rot_speed_deg : float = 60.0
+@export var const_rad_rot : bool = true
+
+var speed : float = 0.0
 
 func collect(item : String) -> void:
 	if item == "Apple":
 		feed.emit()
 	
-func _process(_delta):
-	$Polygon2D.rotation = velocity.angle() + PI/2
+#func _process(_delta):
+	#$Polygon2D.rotation = velocity.angle() + PI/2
 
 func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Vector2(Input.get_axis("Left", "Right"), Input.get_axis("Up", "Down"))
-	direction = direction.normalized()
+	
+	var direction = Vector2( Input.get_axis("Down", "Up"), Input.get_axis("Left", "Right"))
 	
 	if direction:
-		velocity = direction * speed
+		speed = move_toward(speed, max_speed, accelSpeed*delta)
+		var desired_angle = direction.angle()
+		var rot_delta = delta*deg_to_rad(rot_speed_deg)
+		if const_rad_rot:
+			rot_delta *= (speed/max_speed)
+		rotation = rotate_toward(rotation, desired_angle, rot_delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, abs(velocity.normalized().x)*decelSpeed*delta) # linear sliding deceleration
-		velocity.y = move_toward(velocity.y, 0, abs(velocity.normalized().y)*decelSpeed*delta) # linear sliding deceleration
+		speed = move_toward(speed, 0, decelSpeed*delta)
 
+	velocity = Vector2(speed,0).rotated(rotation - PI/2)
 	move_and_slide()
 		
 	

@@ -12,8 +12,8 @@ func attatch_body_seg():
 	var new_seg = bodySeg.instantiate()
 	segCount += 1
 	new_seg.seg_num = segCount
-	$Tail.add_child(new_seg)
 	requiredPathLength = segCount*new_seg.seg_size + extraPathLength
+	$Tail.call_deferred('add_child',new_seg)
 
 func _ready():
 	pass
