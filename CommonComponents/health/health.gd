@@ -11,7 +11,8 @@ signal fully_healed
 @export var health : float = 100:
 	set(val):
 		health = val
-		if health <= 0: out_of_health.emit()
+		if health <= 0: 
+			out_of_health.emit()
 		if health >= max_health: fully_healed.emit()
 
 func recieve_damage(damage : float, allow_over_flow : bool = false) -> void:

@@ -14,11 +14,21 @@ func apply_wiggle(distance : float):
 			child.t += distance*wiggle_move_ratio
 
 func _on_child_entered_tree(node):
-	if get_child_count() < 2:
+	node.died.connect(_on_body_segment_died)
+	var seg_num = get_child_count()
+	node.seg_num = seg_num
+	if seg_num < 2:
 		node.t = 0
 	else:
-		var child = get_child(get_child_count()-2)
+		var child = get_child(seg_num-2)
 		node.t = deg_to_rad(wiggle_node_offset_deg) + child.t
+		
+func _on_child_order_changed():
+	var i = 1
+	for child in get_children():
+		child.seg_num = i
+		i += 1
+	pass # Replace with function body.
 
 func add_path_point(point : Vector2):
 	apply_wiggle(point.distance_to(curve.get_point_position(0)))
@@ -26,3 +36,18 @@ func add_path_point(point : Vector2):
 	
 func remove_path_end():
 	curve.remove_point(curve.point_count-1)
+	
+func _on_child_exiting_tree(node):
+	node.queue_free()
+	pass # Replace with function body.
+
+func _on_body_segment_died(bodySeg):
+	if bodySeg.get_parent() == self:
+		call_deferred("remove_child", bodySeg)
+	pass # Replace with function body.
+
+
+
+
+
+

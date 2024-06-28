@@ -2,7 +2,9 @@ extends PathFollow2D
 
 class_name SnakeBodySeg
 
-var seg_num : int = 0 
+signal died(bodySeg : SnakeBodySeg)
+
+var seg_num : int = 1 
 @export var seg_pad : float = 10:
 	set(value):
 		seg_pad = value
@@ -22,7 +24,6 @@ var t : float = 0:
 		_set_wiggle(value)
 		t = value
 
-
 func _ready():
 	progress = seg_num*seg_size
 
@@ -31,17 +32,3 @@ func _process(_delta):
 	
 func _set_wiggle(theta):
 	v_offset = sin(theta) * wiggle_amp
-
-func attack() -> float:
-	return 10.0
-
-func hit_by(body):
-	if body.get_parent() is SnakeBodySeg:
-		print("body hit by body")
-		var damage = body.get_parent().attack()
-		$Health.recieve_damage(damage)
-	elif body.get_parent() is SnakeHeadSeg:
-		print("body hit by head")
-		var damage = body.get_parent().attack()
-		$Health.recieve_damage(damage)
-	pass # Replace with function body.

@@ -14,7 +14,6 @@ var accelSpeed : float = max_speed/accelTime
 @export var const_rad_rot : bool = true
 
 var speed : float = 0.0
-var rot : float = 0.0
 
 func collect(item : String) -> void:
 	if item == "Apple":
@@ -23,8 +22,6 @@ func collect(item : String) -> void:
 func attack() -> float:
 	return 30.0
 	
-func _process(_delta):
-	$Polygon2D.rotation = rot
 
 func _physics_process(delta):
 
@@ -37,21 +34,22 @@ func _physics_process(delta):
 		var rot_delta = delta*deg_to_rad(rot_speed_deg)
 		if const_rad_rot:
 			rot_delta *= (speed/max_speed)
-		rot = rotate_toward(rot, desired_angle, rot_delta)
+		rotation = rotate_toward(rotation, desired_angle, rot_delta)
 	else:
 		speed = move_toward(speed, 0, decelSpeed*delta)
 
-	velocity = Vector2(speed,0).rotated(rot - PI/2)
+	velocity = Vector2(speed,0).rotated(rotation - PI/2)
 	move_and_slide()
 		
 func hit_by(body):
-	if body.get_parent() is SnakeBodySeg:
-		print("head hit by body")
-		var damage = body.get_parent().attack()
+	var attacker = body.get_parent()
+	if attacker is SnakeBodySeg:
+		print("head hit by body %s" % attacker.seg_num)
+		var damage = attacker.attack()
 		$Health.recieve_damage(damage)
-	elif body.get_parent() is SnakeHeadSeg:
+	elif attacker is SnakeHeadSeg:
 		print("head hit by head")
-		var damage = body.get_parent().attack()
+		var damage = attacker.attack()
 		$Health.recieve_damage(damage)
 	pass # Replace with function body.
 	

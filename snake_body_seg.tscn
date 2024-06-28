@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dltumc3c0eahx"]
+
+[ext_resource type="Script" path="res://Snake/snake_base/SnakeBodySegment.gd" id="1_xwree"]
+
+[node name="SnakeBodySeg" type="PathFollow2D"]
+script = ExtResource("1_xwree")
