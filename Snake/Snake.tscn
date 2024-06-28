@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bu47vd5ss0uit"]
+[gd_scene load_steps=5 format=3 uid="uid://bu47vd5ss0uit"]
 
 [ext_resource type="Script" path="res://Snake/snake_scripts/SnakePathManager.gd" id="1_y0x7h"]
 [ext_resource type="PackedScene" uid="uid://bbvdf5j6jv5lt" path="res://Snake/BasicHead.tscn" id="1_yma3x"]
-[ext_resource type="Script" path="res://CommonComponents/health/health.gd" id="3_0pe10"]
 [ext_resource type="Script" path="res://Snake/snake_scripts/SnakeBodyWiggler.gd" id="3_vt87q"]
-[ext_resource type="PackedScene" uid="uid://dwpr58bwswx3x" path="res://CommonComponents/health/health_bar.tscn" id="4_pqrtb"]
 
 [sub_resource type="Curve2D" id="Curve2D_r2mm3"]
 _data = {
@@ -21,15 +19,6 @@ script = ExtResource("3_vt87q")
 
 [node name="HeadSegment" parent="." instance=ExtResource("1_yma3x")]
 rot_speed_deg = 360.0
-
-[node name="Health" type="Node" parent="HeadSegment"]
-script = ExtResource("3_0pe10")
-health = 20.0
-
-[node name="HealthBar" parent="HeadSegment" node_paths=PackedStringArray("health_component") instance=ExtResource("4_pqrtb")]
-position = Vector2(-8, -19)
-scale = Vector2(0.157948, 0.158574)
-health_component = NodePath("../Health")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2

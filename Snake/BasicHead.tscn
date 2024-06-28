@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbvdf5j6jv5lt"]
+[gd_scene load_steps=7 format=3 uid="uid://bbvdf5j6jv5lt"]
 
 [ext_resource type="Script" path="res://Snake/snake_scripts/SnakeHeadSegment.gd" id="1_fdem6"]
+[ext_resource type="Script" path="res://CommonComponents/health/health.gd" id="2_owf38"]
+[ext_resource type="Script" path="res://CommonComponents/non_rotating.gd" id="3_wey1y"]
+[ext_resource type="PackedScene" uid="uid://dwpr58bwswx3x" path="res://CommonComponents/health/health_bar.tscn" id="4_yobdh"]
+[ext_resource type="Script" path="res://CommonComponents/HitBox.gd" id="5_joue4"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_we1bo"]
 
@@ -14,3 +18,23 @@ shape = SubResource("CircleShape2D_we1bo")
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(2.28621e-06, 0.448706, 0.263454, 1)
 polygon = PackedVector2Array(0, -10, 9, -5, 9, 7, -9, 7, -9, -5)
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_owf38")
+health = 20.0
+
+[node name="RotationlessMarker" type="Marker2D" parent="."]
+script = ExtResource("3_wey1y")
+
+[node name="HealthBar" parent="RotationlessMarker" node_paths=PackedStringArray("health_component") instance=ExtResource("4_yobdh")]
+position = Vector2(-5, -14)
+scale = Vector2(0.1, 0.1)
+health_component = NodePath("../../Health")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 12
+script = ExtResource("5_joue4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_we1bo")

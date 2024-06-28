@@ -42,3 +42,5 @@ Up={
 
 2d_physics/layer_1="Snake"
 2d_physics/layer_2="Food"
+2d_physics/layer_3="hitbox"
+2d_physics/layer_4="attackbox"
