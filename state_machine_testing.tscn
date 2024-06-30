@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ifmtf2vko16e"]
+
+[ext_resource type="Script" path="res://CommonComponents/StateMachine/StateMachine.gd" id="1_niqhs"]
+[ext_resource type="Script" path="res://CommonComponents/StateMachine/State.gd" id="2_6dwvo"]
+[ext_resource type="Script" path="res://CommonComponents/StateMachine/StateTransition.gd" id="3_53bm8"]
+
+[node name="StateMachine" type="Node"]
+script = ExtResource("1_niqhs")
+
+[node name="State" type="Node" parent="."]
+script = ExtResource("2_6dwvo")
+
+[node name="StateTransition" type="Node" parent="State"]
+script = ExtResource("3_53bm8")
+
+[node name="StateTransition2" type="Node" parent="State"]
+script = ExtResource("3_53bm8")
+
+[node name="State2" type="Node" parent="."]
+script = ExtResource("2_6dwvo")
+
+[node name="StateTransition" type="Node" parent="State2"]
+script = ExtResource("3_53bm8")
