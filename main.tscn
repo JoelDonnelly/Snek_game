@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bgjafvglpobht"]
+[gd_scene load_steps=4 format=3 uid="uid://bgjafvglpobht"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_t0vsi"]
 [ext_resource type="PackedScene" uid="uid://bu47vd5ss0uit" path="res://Snake/Snake.tscn" id="2_g1spj"]
+[ext_resource type="PackedScene" uid="uid://ifmtf2vko16e" path="res://state_machine_testing.tscn" id="3_getdw"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_t0vsi")
@@ -12,5 +13,7 @@ position = Vector2(582, 289)
 [node name="newApple" type="Timer" parent="."]
 wait_time = 0.768
 autostart = true
+
+[node name="StateMachine" parent="." instance=ExtResource("3_getdw")]
 
 [connection signal="timeout" from="newApple" to="." method="_on_new_apple_timeout"]
