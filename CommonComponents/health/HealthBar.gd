@@ -21,4 +21,9 @@ func get_perc_from_component():
 	
 func change_health_bar():
 	$healthFilled.scale.x = health_perc
+	if health_perc == 1.0:
+		visible = false
+	else:
+		visible = true
+	
 	

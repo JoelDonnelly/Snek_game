@@ -5,6 +5,11 @@ class_name SnakeTail
 @export var wiggle_move_ratio : float = 0.05
 @export var wiggle_node_offset_deg : float = 120
 
+func _ready():
+	child_entered_tree.connect(_on_child_entered_tree)
+	child_exiting_tree.connect(_on_child_exiting_tree)
+	child_order_changed.connect(_on_child_order_changed)
+
 func add_snake_body(new_seg : SnakeBodySeg):
 	add_child(new_seg)
 	
@@ -14,6 +19,7 @@ func apply_wiggle(distance : float):
 			child.t += distance*wiggle_move_ratio
 
 func _on_child_entered_tree(node):
+	print("child enter tree")
 	node.died.connect(_on_body_segment_died)
 	var seg_num = get_child_count()
 	node.seg_num = seg_num
@@ -28,6 +34,7 @@ func _on_child_order_changed():
 	for child in get_children():
 		child.seg_num = i
 		i += 1
+	
 	pass # Replace with function body.
 
 func add_path_point(point : Vector2):
@@ -42,7 +49,7 @@ func _on_child_exiting_tree(node):
 	pass # Replace with function body.
 
 func _on_body_segment_died(bodySeg):
-	if bodySeg.get_parent() == self:
+	if bodySeg in get_children():
 		call_deferred("remove_child", bodySeg)
 	pass # Replace with function body.
 

@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Snake
+
 var bodySeg : PackedScene = preload("res://Snake/SnakeBodies/BasicBody/BasicBody.tscn")
 var segCount : int = 0
 var maxSegs : int = 10
@@ -15,10 +17,15 @@ func attatch_body_seg():
 	$Tail.call_deferred('add_snake_body',new_seg)
 
 func _ready():
+	if !$Tail.curve:
+		$Tail.curve = Curve2D.new()
+	if $Tail.curve.point_count == 0:
+		$Tail.add_path_point($HeadSegment.position)
 	pass
 
 func _process(_delta):
 	# check that the next node is far enough away from previous
+	
 	if $HeadSegment.position.distance_to($Tail.curve.get_point_position(0)) > minPathNodeDist: 
 		$Tail.add_path_point($HeadSegment.position)
 	

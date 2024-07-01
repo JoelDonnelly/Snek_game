@@ -18,7 +18,6 @@ curve = SubResource("Curve2D_r2mm3")
 script = ExtResource("3_vt87q")
 
 [node name="HeadSegment" parent="." instance=ExtResource("1_yma3x")]
-rot_speed_deg = 360.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2

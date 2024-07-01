@@ -10,7 +10,7 @@ signal feed
 var decelSpeed : float = max_speed/decelTime
 var accelSpeed : float = max_speed/accelTime
 
-@export var rot_speed_deg : float = 60.0
+@export var rot_speed_deg : float = 360.0
 @export var const_rad_rot : bool = true
 
 var speed : float = 0.0

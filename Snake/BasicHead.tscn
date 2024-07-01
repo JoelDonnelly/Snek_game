@@ -21,7 +21,7 @@ polygon = PackedVector2Array(0, -10, 9, -5, 9, 7, -9, 7, -9, -5)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_owf38")
-health = 20.0
+health = 80.0
 
 [node name="RotationlessMarker" type="Marker2D" parent="."]
 script = ExtResource("3_wey1y")
