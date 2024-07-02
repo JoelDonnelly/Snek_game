@@ -3,8 +3,6 @@ extends Node2D
 class_name Snake
 
 var bodySeg : PackedScene = preload("res://Snake/SnakeBodies/BasicBody/BasicBody.tscn")
-var segCount : int = 0
-var maxSegs : int = 10
 
 var minPathNodeDist = 1
 const extraPathLength = 100.0
@@ -38,7 +36,14 @@ func _on_head_segment_feed():
 	attatch_body_seg()
 	pass # Replace with function body.
 
-
 func _on_timer_timeout():
 	$HeadSegment/Health.recieve_healing(1)
 	pass # Replace with function body.
+	
+	
+	
+func _on_start_game_reset_snake():
+	requiredPathLength = extraPathLength
+	$HeadSegment/Health.reset_health()
+	$Tail.shed_tail()
+	$Tail.reset_curve()

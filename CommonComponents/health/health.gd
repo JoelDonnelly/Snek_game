@@ -39,6 +39,9 @@ func set_health(value : float) -> void:
 	elif value < health:
 		damaged.emit(health-value)
 	health = value
+	
+func reset_health() -> void:
+	set_health(max_health)
 
 func get_percent() -> float:
 	return (health/max_health)

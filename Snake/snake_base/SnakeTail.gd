@@ -2,6 +2,8 @@ extends Path2D
 
 class_name SnakeTail
 
+signal length_changed(new_length : int)
+
 @export var wiggle_move_ratio : float = 0.05
 @export var wiggle_node_offset_deg : float = 120
 
@@ -28,6 +30,7 @@ func _on_child_entered_tree(node):
 	else:
 		var child = get_child(seg_num-2)
 		node.t = deg_to_rad(wiggle_node_offset_deg) + child.t
+	length_changed.emit(get_child_count())
 		
 func _on_child_order_changed():
 	var i = 1
@@ -38,7 +41,8 @@ func _on_child_order_changed():
 	pass # Replace with function body.
 
 func add_path_point(point : Vector2):
-	apply_wiggle(point.distance_to(curve.get_point_position(0)))
+	if curve.point_count != 0:
+		apply_wiggle(point.distance_to(curve.get_point_position(0)))
 	curve.add_point(point, Vector2(), Vector2(), 0)
 	
 func remove_path_end():
@@ -46,6 +50,7 @@ func remove_path_end():
 	
 func _on_child_exiting_tree(node):
 	node.queue_free()
+	length_changed.emit(get_child_count()-1)
 	pass # Replace with function body.
 
 func _on_body_segment_died(bodySeg):
@@ -53,7 +58,12 @@ func _on_body_segment_died(bodySeg):
 		call_deferred("remove_child", bodySeg)
 	pass # Replace with function body.
 
-
+func shed_tail():
+	for bodySeg in get_children():
+		call_deferred("remove_child", bodySeg)
+	
+func reset_curve():
+	curve._data.clear()
 
 
 

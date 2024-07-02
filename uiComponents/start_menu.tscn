@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2umnuxqfr5xr"]
+
+[ext_resource type="Script" path="res://uiComponents/start_menu.gd" id="1_jojcf"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jojcf")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_right = 230.0
+offset_bottom = 648.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TopSpacer" type="Container" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Title" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 1.5
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 60
+text = "SNEK"
+
+[node name="StartGameButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 24
+text = "Start Game"
+
+[node name="MiddleSpacer" type="Container" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+
+[node name="SettingsContainer" type="GridContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+size_flags_stretch_ratio = 4.0
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="PanelContainer/VBoxContainer/SettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicVolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/SettingsContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+
+[node name="SfxLabel" type="Label" parent="PanelContainer/VBoxContainer/SettingsContainer"]
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="SfxVolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/SettingsContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 1
+value = 100.0
+
+[connection signal="button_up" from="PanelContainer/VBoxContainer/StartGameButton" to="." method="_on_start_game_button_button_up"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/SettingsContainer/MusicVolumeSlider" to="." method="_on_music_volume_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/SettingsContainer/SfxVolumeSlider" to="." method="_on_sfx_volume_slider_value_changed"]

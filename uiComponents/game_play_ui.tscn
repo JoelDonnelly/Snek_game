@@ -1,0 +1,110 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc4e3mvd7rgmk"]
+
+[ext_resource type="Script" path="res://uiComponents/game_play_ui.gd" id="1_8ktom"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_jkhog"]
+size = Vector2(20, 20)
+
+[node name="GamePlayUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ktom")
+
+[node name="ClockTimer" type="Timer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -576.0
+offset_right = 576.0
+offset_bottom = 29.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="LengthContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="BodySegSpriteL" type="TextureRect" parent="PanelContainer/HBoxContainer/LengthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/LengthContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<Length>"
+horizontal_alignment = 1
+
+[node name="BodySegSpriteR" type="TextureRect" parent="PanelContainer/HBoxContainer/LengthContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="ScoreContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="AppleSpriteL" type="TextureRect" parent="PanelContainer/HBoxContainer/ScoreContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/ScoreContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<Score>"
+horizontal_alignment = 1
+
+[node name="AppleSpriteR" type="TextureRect" parent="PanelContainer/HBoxContainer/ScoreContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="TimeContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+alignment = 1
+
+[node name="ClockSpriteL" type="TextureRect" parent="PanelContainer/HBoxContainer/TimeContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/TimeContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "<time:time>"
+horizontal_alignment = 1
+
+[node name="ClockSpriteR" type="TextureRect" parent="PanelContainer/HBoxContainer/TimeContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_jkhog")
+expand_mode = 2
+stretch_mode = 4
+
+[connection signal="timeout" from="ClockTimer" to="." method="_on_timer_timeout"]

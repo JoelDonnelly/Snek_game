@@ -38,3 +38,5 @@ script = ExtResource("5_joue4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("CircleShape2D_we1bo")
+
+[connection signal="out_of_health" from="Health" to="." method="_on_health_out_of_health"]

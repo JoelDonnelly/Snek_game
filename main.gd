@@ -10,3 +10,7 @@ func _on_new_apple_timeout():
 	apple.position = Vector2(randx,randy)
 	add_child(apple)
 	pass # Replace with function body.
+
+
+func _on_tail_length_changed(_new_length):
+	pass # Replace with function body.

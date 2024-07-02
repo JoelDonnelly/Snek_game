@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name SnakeHeadSeg
 
 signal feed
+signal died
 
 @export var max_speed : float = 300.0
 @export var accelTime : float = 0.8
@@ -53,3 +54,8 @@ func hit_by(body):
 		$Health.recieve_damage(damage)
 	pass # Replace with function body.
 	
+
+
+func _on_health_out_of_health():
+	died.emit()
+	pass # Replace with function body.

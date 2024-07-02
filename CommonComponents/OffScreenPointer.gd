@@ -17,7 +17,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !(node.is_on_screen() && only_when_off_screen):
 		position = node.global_position
 		position = position.clamp(Vector2.ZERO , get_viewport_rect().size )

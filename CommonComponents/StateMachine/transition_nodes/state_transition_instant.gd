@@ -2,9 +2,9 @@ extends StateTransition
 
 class_name InstantTransition
 
-func frame(delta): pass
+func frame(_delta): pass
 	
-func physics_frame(delta): pass
+func physics_frame(_delta): pass
 	
 func enable(): 
 	trigger_function()
