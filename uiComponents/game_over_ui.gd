@@ -40,15 +40,6 @@ func _process(_delta):
 	pass
 
 
-func _on_visibility_changed():
-	if visible:
-		SplashTextLabel.text = splashTexts.pick_random()
-		ApplesEatenLabel.text = "%s" % 0
-		LongestLengthLabel.text = "%s" % 1
-		TimeLabel.text = "%s" % 2
-		ScoreLabel.text = "%s" % 3
-	pass # Replace with function body.
-
 
 func _on_main_menu_button_button_up():
 	select_main_menu.emit()
@@ -56,3 +47,14 @@ func _on_main_menu_button_button_up():
 
 func _on_play_again_button_button_up():
 	select_play_again.emit()
+
+
+func _on_durring_game_game_over(score, length, apples, time):
+	SplashTextLabel.text = splashTexts.pick_random()
+	#ApplesEatenLabel.text = "%s" % apples
+	ApplesEatenLabel.text = "<working on it>"
+	LongestLengthLabel.text = "%s" % length
+	TimeLabel.text = "%s" % time
+	ScoreLabel.text = "%s" % score
+	
+	pass # Replace with function body.

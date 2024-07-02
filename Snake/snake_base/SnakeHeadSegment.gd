@@ -19,6 +19,8 @@ var accelSpeed : float = max_speed/accelTime
 
 var speed : float = 0.0
 
+var direction : Vector2 = Vector2.ZERO
+
 func collect(item : String) -> void:
 	if item == "Apple":
 		feed.emit()
@@ -30,7 +32,7 @@ func attack() -> float:
 func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
-	var direction = Vector2( Input.get_axis("Down", "Up"), Input.get_axis("Left", "Right"))
+	#var direction = Vector2( Input.get_axis("Down", "Up"), Input.get_axis("Left", "Right"))
 	
 	if direction:
 		speed = move_toward(speed, max_speed, accelSpeed*delta)
@@ -59,6 +61,7 @@ func hit_by(body):
 	
 
 func _on_health_out_of_health():
+	direction = Vector2.ZERO
 	died.emit()
 	pass # Replace with function body.
 

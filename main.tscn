@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://CommonComponents/StateMachine/base_nodes/state_machine.gd" id="11_8vjms"]
 [ext_resource type="Script" path="res://GameStates/StartScreenBehaviour.gd" id="12_jlpkp"]
 [ext_resource type="Script" path="res://CommonComponents/StateMachine/transition_nodes/state_transition_signal.gd" id="13_5wm74"]
-[ext_resource type="Script" path="res://StartGame.gd" id="14_oqqsf"]
+[ext_resource type="Script" path="res://GameStates/StartGame.gd" id="14_oqqsf"]
 [ext_resource type="Script" path="res://GameStates/PlayBehaviour.gd" id="14_qjior"]
 [ext_resource type="Script" path="res://GameStates/GameOverScreenBehaviour.gd" id="15_v5odv"]
 [ext_resource type="Script" path="res://CommonComponents/StateMachine/transition_nodes/state_transition_instant.gd" id="15_v8pnl"]
@@ -22,6 +22,7 @@
 script = ExtResource("1_t0vsi")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+process_mode = 1
 script = ExtResource("11_8vjms")
 initial_state = NodePath("BeforeGame")
 
@@ -39,12 +40,22 @@ script = ExtResource("14_oqqsf")
 script = ExtResource("15_v8pnl")
 to_state = NodePath("../../DurringGame")
 
-[node name="DurringGame" type="Node" parent="StateMachine"]
+[node name="DurringGame" type="Node" parent="StateMachine" node_paths=PackedStringArray("GamePlayUi", "appleTimer", "clockTimer", "snakeChar")]
 script = ExtResource("14_qjior")
+GamePlayUi = NodePath("../../CanvasLayer/GamePlayUi")
+appleTimer = NodePath("newApple")
+clockTimer = NodePath("ClockTimer")
+snakeChar = NodePath("../../HeadSegment")
 
 [node name="SignalTo_EndGame" type="Node" parent="StateMachine/DurringGame" node_paths=PackedStringArray("to_state")]
 script = ExtResource("13_5wm74")
 to_state = NodePath("../../EndGame")
+
+[node name="ClockTimer" type="Timer" parent="StateMachine/DurringGame"]
+wait_time = 0.1
+
+[node name="newApple" type="Timer" parent="StateMachine/DurringGame"]
+wait_time = 0.124
 
 [node name="EndGame" type="Node" parent="StateMachine"]
 script = ExtResource("15_v5odv")
@@ -57,18 +68,11 @@ to_state = NodePath("../../StartGame")
 script = ExtResource("13_5wm74")
 to_state = NodePath("../../BeforeGame")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
-
-[node name="newApple" type="Timer" parent="."]
-wait_time = 0.768
-autostart = true
-
 [node name="RespawnPoint" type="Marker2D" parent="."]
-position = Vector2(641, 261)
+position = Vector2(127, 223)
 
 [node name="HeadSegment" parent="." node_paths=PackedStringArray("spawn_point") instance=ExtResource("5_dk6tp")]
-position = Vector2(641, 261)
+position = Vector2(108, 67)
 spawn_point = NodePath("../RespawnPoint")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="HeadSegment"]
@@ -99,16 +103,19 @@ visible = false
 [node name="GameOverUi" parent="CanvasLayer" instance=ExtResource("8_2bwvs")]
 visible = false
 
-[connection signal="score_update" from="." to="CanvasLayer/GamePlayUi" method="_on_score_updated"]
 [connection signal="reset_snake" from="StateMachine/StartGame" to="." method="_on_start_game_reset_snake"]
 [connection signal="reset_snake" from="StateMachine/StartGame" to="HeadSegment" method="_on_reset_snake"]
 [connection signal="reset_snake" from="StateMachine/StartGame" to="Tail" method="_on_reset_snake"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="newApple" to="." method="_on_new_apple_timeout"]
+[connection signal="game_over" from="StateMachine/DurringGame" to="CanvasLayer/GameOverUi" method="_on_durring_game_game_over"]
+[connection signal="length_update" from="StateMachine/DurringGame" to="CanvasLayer/GamePlayUi" method="_on_length_updated"]
+[connection signal="score_update" from="StateMachine/DurringGame" to="CanvasLayer/GamePlayUi" method="_on_score_updated"]
+[connection signal="time_update" from="StateMachine/DurringGame" to="CanvasLayer/GamePlayUi" method="_on_time_updated"]
+[connection signal="timeout" from="StateMachine/DurringGame/ClockTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="StateMachine/DurringGame/ClockTimer" to="StateMachine/DurringGame" method="_on_clock_timer_timeout"]
+[connection signal="timeout" from="StateMachine/DurringGame/newApple" to="." method="_on_new_apple_timeout"]
 [connection signal="died" from="HeadSegment" to="StateMachine/DurringGame/SignalTo_EndGame" method="_on_signal"]
-[connection signal="feed" from="HeadSegment" to="." method="_on_head_segment_feed"]
-[connection signal="length_changed" from="Tail" to="." method="_on_tail_length_changed"]
-[connection signal="length_changed" from="Tail" to="CanvasLayer/GamePlayUi" method="_on_length_updated"]
+[connection signal="feed" from="HeadSegment" to="StateMachine/DurringGame" method="_on_head_segment_feed"]
+[connection signal="length_changed" from="Tail" to="StateMachine/DurringGame" method="_on_tail_length_changed"]
 [connection signal="start_game_select" from="CanvasLayer/StartMenu" to="StateMachine/BeforeGame/SignalTo_StartGame" method="_on_signal"]
 [connection signal="select_main_menu" from="CanvasLayer/GameOverUi" to="StateMachine/EndGame/SignalTo_MainMenu" method="_on_signal"]
 [connection signal="select_play_again" from="CanvasLayer/GameOverUi" to="StateMachine/EndGame/SignalTo_StartGame" method="_on_signal"]

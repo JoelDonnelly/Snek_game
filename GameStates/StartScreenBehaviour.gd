@@ -9,10 +9,10 @@ func exit():
 	$"../../CanvasLayer/StartMenu".visible = false
 	pass
 	
-func physics_frame():
+func _physics_process(_delta):
 	pass
 	
-func process_frame():
+func _process(_delta):
 	pass
 	
 
