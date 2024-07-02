@@ -14,8 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_8ktom")
 
-[node name="ClockTimer" type="Timer" parent="."]
-
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 5
@@ -106,5 +104,3 @@ layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_jkhog")
 expand_mode = 2
 stretch_mode = 4
-
-[connection signal="timeout" from="ClockTimer" to="." method="_on_timer_timeout"]
