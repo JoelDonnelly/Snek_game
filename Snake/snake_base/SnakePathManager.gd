@@ -35,10 +35,6 @@ func _process(_delta):
 func _on_head_segment_feed():
 	attatch_body_seg()
 	pass # Replace with function body.
-
-func _on_timer_timeout():
-	$HeadSegment/Health.recieve_healing(1)
-	pass # Replace with function body.
 	
 	
 	
