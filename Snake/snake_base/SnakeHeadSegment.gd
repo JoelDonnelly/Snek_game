@@ -8,11 +8,14 @@ signal died
 @export var max_speed : float = 300.0
 @export var accelTime : float = 0.8
 @export var decelTime : float = 0.8
+
 var decelSpeed : float = max_speed/decelTime
 var accelSpeed : float = max_speed/accelTime
 
 @export var rot_speed_deg : float = 360.0
 @export var const_rad_rot : bool = true
+
+@export var spawn_point : Node2D
 
 var speed : float = 0.0
 
@@ -55,7 +58,12 @@ func hit_by(body):
 	pass # Replace with function body.
 	
 
-
 func _on_health_out_of_health():
 	died.emit()
 	pass # Replace with function body.
+
+func _on_reset_snake():
+	$Health.reset_health()
+	if spawn_point:
+		position = spawn_point.position
+		rotation = spawn_point.rotation
