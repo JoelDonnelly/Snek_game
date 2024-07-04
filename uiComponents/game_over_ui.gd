@@ -54,7 +54,7 @@ func _on_durring_game_game_over(score, length, apples, time):
 	#ApplesEatenLabel.text = "%s" % apples
 	ApplesEatenLabel.text = "<working on it>"
 	LongestLengthLabel.text = "%s" % length
-	TimeLabel.text = "%s" % time
+	TimeLabel.text = "%.1f" % time
 	ScoreLabel.text = "%s" % score
 	
 	pass # Replace with function body.

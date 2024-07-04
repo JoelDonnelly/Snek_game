@@ -9,8 +9,9 @@ func _ready():
 	if !initial_state:
 		for child in get_children():
 			if child is State:
-				initial_state = child
-				break
+				if !initial_state:
+					initial_state = child
+				
 		if !initial_state:
 			push_error("State Machine Has No States")
 			return

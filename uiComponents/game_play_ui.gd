@@ -15,13 +15,11 @@ func _ready():
 
 func _on_score_updated(score : int):
 	score_label.text = "%s" % score
-	pass
 	
 func _on_length_updated(length : int):
 	length_label.text = "%s" % length
-	pass
 	
 func _on_time_updated(time : float):
-	time_label.text = "%s" % time
+	time_label.text = "%.1f" % time
 	
 
