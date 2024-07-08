@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bf1mpkqlov7x1"]
+
+[node name="DisplayHead" type="Polygon2D"]
+rotation = 1.5708
+color = Color(2.28621e-06, 0.448706, 0.263454, 1)
+polygon = PackedVector2Array(0, -10, 9, -5, 9, 7, -9, 7, -9, -5)

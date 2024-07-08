@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cncccqrldsu30"]
+
+[ext_resource type="Script" path="res://Snake/PathFollowingSnake.gd" id="1_tc4h5"]
+[ext_resource type="Script" path="res://Snake/snake_base/SnakeTail.gd" id="3_s8ak4"]
+
+[node name="PathFollowingSnake" type="Node2D"]
+script = ExtResource("1_tc4h5")
+bodySegs = 12
+
+[node name="Path2D" type="Path2D" parent="."]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = 1.12534
+
+[node name="SnakeTail" type="Path2D" parent="." node_paths=PackedStringArray("tracking_node")]
+script = ExtResource("3_s8ak4")
+tracking_node = NodePath("../Path2D/PathFollow2D")

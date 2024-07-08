@@ -1,10 +1,7 @@
 extends Node2D
-var appleObj = preload("res://Apples/Apple.tscn")
+var appleObj : PackedScene = preload("res://Apples/Apple.tscn")
 
-signal score_update(score : int)
-signal length_update(length : int)
-signal time_update(time : float)
-
+signal kill_apple
 
 
 func _on_new_apple_timeout():
@@ -15,6 +12,12 @@ func _on_new_apple_timeout():
 	apple.position = Vector2(randx,randy)
 	add_child(apple)
 	pass # Replace with function body.
+
+func _on_game_over():
+	for child in get_children():
+		if child.is_in_group("food"):
+			child.queue_free()
+			remove_child(child)
 
 
 

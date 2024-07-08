@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://cncccqrldsu30"]
+
+[ext_resource type="Script" path="res://SnakeHeadFollowPath.gd" id="1_u424p"]
+[ext_resource type="Script" path="res://Snake/snake_base/SnakeTail.gd" id="3_5epl5"]
+[ext_resource type="PackedScene" uid="uid://b2wceyun1440d" path="res://Snake/SnakeBodies/BasicBody/BasicBody.tscn" id="4_0rcjn"]
+
+[sub_resource type="Curve2D" id="Curve2D_jcmr4"]
+_data = {
+"points": PackedVector2Array(-5.38588, -11.2802, 5.38588, 11.2802, 0, 0, -6.9951, -10.3595, 6.9951, 10.3595, 37.5, 70.7107, -12.5, -7.41612e-15, 12.5, 7.41612e-15, 75, 100, -6.9951, 10.3595, 6.9951, -10.3595, 112.5, 70.7107, -5.38588, 11.2802, 5.38588, -11.2802, 150, 5.6655e-14, -6.9951, 10.3595, 6.9951, -10.3595, 187.5, -70.7107, -12.5, 4.80902e-15, 12.5, -4.80902e-15, 225, -100, -6.9951, -10.3595, 6.9951, 10.3595, 262.5, -70.7107, -5.38588, -11.2802, 5.38588, 11.2802, 300, -1.1331e-13, -6.9951, -10.3595, 6.9951, 10.3595, 337.5, 70.7107, -12.5, -3.12675e-14, 12.5, 3.12675e-14, 375, 100, -6.9951, 10.3595, 6.9951, -10.3595, 412.5, 70.7107, -5.38588, 11.2802, 5.38588, -11.2802, 450, 3.67382e-14, -6.9951, 10.3595, 6.9951, -10.3595, 487.5, -70.7107, -12.5, 1.1221e-14, 12.5, -1.1221e-14, 525, -100, -6.9951, -10.3595, 6.9951, 10.3595, 562.5, -70.7107, -5.38588, -11.2802, 5.38588, 11.2802, 600, -2.2662e-13, -6.9951, -10.3595, 6.9951, 10.3595, 637.5, 70.7107, -12.5, -6.0932e-14, 12.5, 6.0932e-14, 675, 100, -6.9951, 10.3595, 6.9951, -10.3595, 712.5, 70.7107, -5.38588, 11.2802, 5.38588, -11.2802, 750, 2.38866e-13, -6.9951, 10.3595, 6.9951, -10.3595, 787.5, -70.7107, -12.5, 6.4138e-14, 12.5, -6.4138e-14, 825, -100, -6.9951, -10.3595, 6.9951, 10.3595, 862.5, -70.7107, -5.38588, -11.2802, 5.38588, 11.2802, 900, -7.34764e-14, -6.9951, -10.3595, 6.9951, 10.3595, 937.5, 70.7107, -12.5, -6.7344e-14, 12.5, 6.7344e-14, 975, 100)
+}
+point_count = 27
+
+[sub_resource type="Curve2D" id="Curve2D_lhgdr"]
+
+[node name="PathFollowingSnake" type="Node2D"]
+script = ExtResource("1_u424p")
+curve = SubResource("Curve2D_jcmr4")
+bodyScene = ExtResource("4_0rcjn")
+
+[node name="Path2D" type="Path2D" parent="."]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotation = 1.12534
+
+[node name="Head" type="Polygon2D" parent="Path2D/PathFollow2D"]
+color = Color(2.28621e-06, 0.448706, 0.263454, 1)
+polygon = PackedVector2Array(0, -10, 9, -5, 9, 7, -9, 7, -9, -5)
+
+[node name="SnakeTail" type="Path2D" parent="." node_paths=PackedStringArray("tracking_node")]
+curve = SubResource("Curve2D_lhgdr")
+script = ExtResource("3_5epl5")
+tracking_node = NodePath("../Path2D/PathFollow2D/Head")

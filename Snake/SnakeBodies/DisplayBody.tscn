@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://rsgc5a61l8jq"]
+
+[ext_resource type="Script" path="res://Snake/snake_base/SnakeBodySegment.gd" id="1_trisu"]
+
+[node name="DisplayBody" type="PathFollow2D"]
+loop = false
+script = ExtResource("1_trisu")
+seg_pad = 5.0
+wiggle_amp = 8.0
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+rotation = 1.5708
+color = Color(2.28621e-06, 0.448706, 0.263454, 1)
+polygon = PackedVector2Array(0, -10, 9, -5, 9, 5, 0, 10, -9, 5, -9, -5)

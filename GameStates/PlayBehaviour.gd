@@ -2,40 +2,37 @@ extends StateNode
 
 var appleObj = preload("res://Apples/Apple.tscn")
 
-signal score_update(score : int)
-signal length_update(length : int)
 signal time_update(time : float)
+signal score_inc(inc : int)
+signal game_over
 
-signal game_over(score: int, length: int, apples: int, time:float)
-
-var score : int = 0
-var length : int = 0
-var time : float = 0.0
 
 @export var GamePlayUi : Control
 @export var appleTimer : Timer
 @export var clockTimer : Timer
 @export var snakeChar : SnakeHeadSeg
+@export var tail: SnakeTail
 
 func enter():
 	GamePlayUi.visible = true
-	score = 0
-	time = 0.0
-	score_update.emit(0)
-	length_update.emit(0)
+
+
 	time_update.emit(0)
 
 	appleTimer.start()
 	clockTimer.start()
+	
+	$"../../CanvasLayer2".visible = true
 
 
 	pass
 	
 func exit():
 	GamePlayUi.visible = false
+	$"../../CanvasLayer2".visible = false
 	appleTimer.stop()
 	clockTimer.stop()
-	game_over.emit(score, length, 0, time)
+	game_over.emit()
 	pass
 	
 func _physics_process(_delta):
@@ -49,17 +46,11 @@ func _process(_delta):
 	pass
 
 func _on_clock_timer_timeout():
-	time += clockTimer.wait_time
-	time_update.emit(time)
+	time_update.emit(clockTimer.wait_time)
 	pass
 
-func _on_tail_length_changed(_new_length):
-	length = _new_length
-	length_update.emit(length)
-
 func _on_head_segment_feed():
-	score += length
-	score_update.emit(score)
+	score_inc.emit(tail.get_child_count()+1)
 
 
 

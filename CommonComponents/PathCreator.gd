@@ -49,6 +49,11 @@ class_name PathCreator
 	set(val):
 		rotations = val
 		remake_path()
+		
+@export_enum("CLOCKWISE","COUNTERCLOCKWISE") var direction : String = "CLOCKWISE":
+	set(val):
+		direction = val
+		remake_path()
 
 	
 func _ready():
@@ -71,12 +76,12 @@ func remake_path():
 		
 	if reverse_direction:
 		var new_curve = Curve2D.new()
-		var i_new = 0
 		var i_old = curve.point_count-1
+		var point_0 = curve.get_point_position(i_old)
 		while i_old >= 0:
 			var invec = curve.get_point_out(i_old)
 			var outvec = curve.get_point_in(i_old)
-			var pvec = curve.get_point_position(i_old)
+			var pvec = curve.get_point_position(i_old) - point_0
 			new_curve.add_point(pvec, invec, outvec)
 			i_old -= 1
 		curve = new_curve
@@ -84,7 +89,6 @@ func remake_path():
 func remake_wave():
 	var subDist = preriod_dist/in_betweens
 	var l : float = 0
-	var i = 0
 	while l < length:
 		var v_pos : float = amp*sin(((2*PI)/preriod_dist)*l + theta_offset)
 		var gradient = amp*((2*PI)/preriod_dist)*cos(((2*PI)/preriod_dist)*l + theta_offset)
@@ -95,7 +99,6 @@ func remake_wave():
 		
 		curve.add_point(pvec,invec,outvec)
 		l += subDist
-		i += 1
 	
 	pass
 
@@ -110,15 +113,18 @@ func remake_spiral():
 	
 	curve.add_point(Vector2.ZERO)
 	
+	var xInv = 1
+	if direction == "COUNTERCLOCKWISE":
+		xInv = -1
 	var prev_pvec
 	var pvec = Vector2.ZERO
-	var next_pvec = (r)*Vector2(sin(ang),cos(ang))
+	var next_pvec = (r)*Vector2(xInv*sin(ang),cos(ang))
 	
 	while r < max_radius:
 		
 		prev_pvec = pvec
 		pvec = next_pvec
-		next_pvec = (r+sub_radius)*Vector2(sin(ang+sub_angles),cos(ang+sub_angles))
+		next_pvec = (r+sub_radius)*Vector2(sin(xInv*(ang+sub_angles)),cos(ang+sub_angles))
 		
 		var invec = (prev_pvec-next_pvec).normalized()*r*sub_angles/3
 		var outvec = (next_pvec-prev_pvec).normalized()*r*sub_angles/3
